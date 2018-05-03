@@ -18,8 +18,7 @@ const eventDisplayedFilter = (startDate: Date, endDate: Date, event: Event) => {
 
 const eventsTodayFilter = (today: Date, allEvents: Array<Event>) => {
   return allEvents.filter(thisEvent => {
-    window.today = today;
-    if (thisEvent.startDateTime.getYear() !== today.getUTCFullYear()) return false;
+    if (thisEvent.startDateTime.getYear() !== today.getYear()) return false;
     if (thisEvent.startDateTime.getMonth() !== today.getMonth()) return false;
     if (thisEvent.startDateTime.getDate() !== today.getDate()) return false;
     return true;
@@ -89,7 +88,6 @@ export const RangeCalendar = ({ startDate, endDate, allEvents}) => {
     lastSunday.diff(weekStartDay, 'week') >= 0 ;
     weekStartDay = weekStartDay.add(1, 'week')
   ) {
-    console.log(`Making a week starting on ${weekStartDay.format('MM/DD/YYYY')}`)
     weeks.push(
       <div style={{display: 'inline-block'}}>
         { Week({weekStartDay, allEvents}) }
